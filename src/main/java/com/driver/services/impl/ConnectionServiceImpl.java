@@ -20,15 +20,24 @@ public class ConnectionServiceImpl implements ConnectionService {
     ConnectionRepository connectionRepository2;
 
     @Override
-    public User connect(int userId, String countryName) throws Exception{
+    public User connect(int userId, String countryName) throws Exception {
+        User user = userRepository2.findById(userId).get();
 
+        return user;
     }
+
     @Override
     public User disconnect(int userId) throws Exception {
+        User user = userRepository2.findById(userId).get();
 
+        return user;
     }
+
     @Override
     public User communicate(int senderId, int receiverId) throws Exception {
 
+        User user = userRepository2.findById(senderId).get();
+
+        return user;
     }
 }
