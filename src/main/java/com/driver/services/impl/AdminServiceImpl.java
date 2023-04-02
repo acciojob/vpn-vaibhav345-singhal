@@ -39,7 +39,7 @@ public class AdminServiceImpl implements AdminService {
         serviceProvider.setName(providerName);
 
         admin.getServiceProviders().add(serviceProvider);
-        adminRepository1.save(admin);
+        admin = adminRepository1.save(admin);
         return admin;
     }
 
