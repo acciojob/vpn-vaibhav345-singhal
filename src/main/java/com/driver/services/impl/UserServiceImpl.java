@@ -27,6 +27,8 @@ public class UserServiceImpl implements UserService {
 
         user.setConnected(false);
         user.setMaskedIp(null);
+        user.setUsername(username);
+        user.setPassword(password);
 
         Country country = new Country();
 
@@ -49,16 +51,14 @@ public class UserServiceImpl implements UserService {
             throw new Exception("Country not found");
         }
 
-        country.setServiceProvider(null);
         country.setUser(user);
 
         user.setOriginalCountry(country);
-
         user = userRepository3.save(user);
 
         user.setOriginalIp(country.getCode() + "." + user.getId());
-
         user = userRepository3.save(user);
+
         return user;
     }
 
@@ -70,8 +70,9 @@ public class UserServiceImpl implements UserService {
         User user = userRepository3.findById(userId).get();
         user.getServiceProviderList().add(serviceProvider);
 
-        user = userRepository3.save(user);
+        serviceProvider.getUsers().add(user);
 
+        serviceProviderRepository3.save(serviceProvider);
         return user;
     }
 }

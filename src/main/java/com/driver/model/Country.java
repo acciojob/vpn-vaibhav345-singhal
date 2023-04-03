@@ -16,14 +16,16 @@ public class Country {
 
     private String code;
 
-    @OneToOne(mappedBy = "OriginalCountry")
+    @OneToOne
+    @JoinColumn
     User user;
 
     @ManyToOne
     @JoinColumn
     ServiceProvider serviceProvider;
 
-    public Country(){}
+    public Country() {
+    }
 
     public Country(int id, CountryName countryName, String code, User user, ServiceProvider serviceProvider) {
         this.id = id;
