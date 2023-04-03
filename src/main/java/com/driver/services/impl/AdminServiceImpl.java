@@ -73,7 +73,6 @@ public class AdminServiceImpl implements AdminService {
             throw new Exception("Country not found");
         }
 
-        country.setUser(null);
         country.setServiceProvider(serviceProvider);
 
         serviceProvider.getCountryList().add(country);

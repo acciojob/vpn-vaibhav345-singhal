@@ -48,14 +48,22 @@ public class ConnectionServiceImpl implements ConnectionService {
             }
             if (!isAvailableProvider) throw new Exception("Unable to connect");
             else {
+
+                Connection connection = new Connection();
+                connection.setUser(user);
+                connection.setServiceProvider(serviceProvider1);
+
+                user.getConnectionList().add(connection);
                 user.setConnected(true);
                 user.getServiceProviderList().add(serviceProvider1);
+
                 serviceProvider1.getUsers().add(user);
+                serviceProvider1.getConnectionList().add(connection);
+
                 user.setMaskedIp(country1.getCode() + "." + serviceProvider1.getId() + "." + userId);
                 serviceProviderRepository2.save(serviceProvider1);
             }
         }
-        user = userRepository2.save(user);
         return user;
     }
 
