@@ -69,17 +69,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User subscribe(Integer userId, Integer serviceProviderId) {
-        ServiceProvider serviceProvider = null;
-        User user = null;
-        try {
-            serviceProvider = serviceProviderRepository3.findById(serviceProviderId).get();
-            user = userRepository3.findById(userId).get();
-        } catch (Exception ignored) {
 
-        }
+        ServiceProvider serviceProvider = serviceProviderRepository3.findById(serviceProviderId).get();
+        User user = userRepository3.findById(userId).get();
 
-
-        assert user != null;
         user.getServiceProviderList().add(serviceProvider);
 
         serviceProvider.getUsers().add(user);
