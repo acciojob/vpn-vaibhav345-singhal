@@ -11,6 +11,8 @@ import com.driver.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -53,8 +55,11 @@ public class UserServiceImpl implements UserService {
 
         country.setUser(user);
 
+        user.setConnectionList(new ArrayList<>());
+        user.setServiceProviderList(new ArrayList<>());
         user.setOriginalCountry(country);
         user = userRepository3.save(user);
+
 
         user.setOriginalIp(country.getCode() + "." + user.getId());
         user = userRepository3.save(user);
@@ -64,10 +69,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User subscribe(Integer userId, Integer serviceProviderId) {
+        ServiceProvider serviceProvider = null;
+        User user = null;
+        try {
+            serviceProvider = serviceProviderRepository3.findById(serviceProviderId).get();
+            user = userRepository3.findById(userId).get();
+        } catch (Exception ignored) {
 
-        ServiceProvider serviceProvider = serviceProviderRepository3.findById(serviceProviderId).get();
+        }
 
-        User user = userRepository3.findById(userId).get();
+
+        assert user != null;
         user.getServiceProviderList().add(serviceProvider);
 
         serviceProvider.getUsers().add(user);
